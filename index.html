@@ -9,9 +9,6 @@
   <style type="text/css">
     p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
     p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}
-    span.s1 {font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: 0px #000000}
-    span.s2 {font-kerning: none}
   </style>
 </head>
 <body>
@@ -19,58 +16,147 @@
 <p class="p1">&lt;html lang="es"&gt;</p>
 <p class="p1">&lt;head&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Editor PDF Médico&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Editor PDF Dropbox&lt;/title&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"&gt;&lt;/script&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"&gt;&lt;/script&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: -apple-system, sans-serif; background: #f0f2f5; padding: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header { background: #0061ff; color: white; padding: 20px; border-radius: 0 0 20px 20px; margin: -15px -15px 20px -15px; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button { background: #0061ff; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.file-name { color: #333; font-weight: 600; display: block; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Estilos optimizados para iPhone */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f2f2f7;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #1c1c1e;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #007aff;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px 15px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 10px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container { padding: 15px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 18px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 14px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 12px rgba(0,0,0,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.file-name { font-weight: 600; font-size: 17px; color: #000; word-break: break-all; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #007aff;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 14px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:active { background-color: #0056b3; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#status { text-align: center; padding: 20px; color: #8e8e93; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
 <p class="p1">&lt;/head&gt;</p>
 <p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Gestor PDF Dropbox&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 style="margin:0; font-size: 22px;"&gt;Gestor PDF&lt;/h1&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="lista"&gt;Cargando tus documentos médicos...&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="status"&gt;Cargando archivos desde Dropbox...&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="file-list"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>const TOKEN = </span><span class="s2">sl.u.AGV88n69d7KfuSWkIbnFTP1ft0zv97tkZ608RwcbOWJxVeAD4v9GRf374UbeUOfFEaIeSM7Sz5tn0-79agP3Cn_Bpi9gPRgAV8x_jA2VBNME4QzibrvkSbUtG5u5Srinjn3jF95RtibQ6kRWFGtKI7FllZluqdtJPCL9JrYub3IQsp947OISchuxE4LnVsd2V9cqQWTCyOn11DuSNN2rlow1WsHGh4EK2fz2JE_trhgU8QO1O4VnN6sZbdDVDYCy3AUs7zBnaeVU9Bu9E_WFoD7lm9GC-hjb22Yx-VYkwYKNt6kkne0Anx9oVl05jd4I0E2m8vdulHsgUOVAKHjRRcQ-PX7dgG37NifQrH1x0SFF8rmrAnC4YkIq80sefQXBZ__jdbXKJ7cRMY8NWkyFkx5MIlQiNN7lQqOwRm3ZpsBegLCF2naa6Pol3xrNSrBTXccawTZ8vTzz7apL79ZNwYJA5pAX0i2blgyHpD8aVK9PLgdkvCDniJfE2ewJbAt5abql6CTtlGlkAZyjWFgfzDHEQ6_6VVLCTUwi6sU85u4LOkAOi5en8FFuRkcd5tHD0nkcAJ54zx_ekPS-xxm66BZAxG8BEXO_9w-EgLq02x6ixgmMVMQHBY-lGpV4oLDLxhS-EbrBqapNaNHJGq52gkYNFl3Pp1KJS35gLgNUZaWskZYvA7RIjVU_LW524bdHuQ6i-8bYMkWTYP7bZJc_lHoqD-v84iWqUKw6YYgf8E9VqvpELJO12CSxRgPK4jUd7LhlEfqM_sIDFg_6hztEs1nDMzcrePq0HVEnjN8STqtzT3ML9xAs8pMPokw5URdIxs-ebFuBmfRzmNn9DYZ9xkVGP9vtegW3cPflQNzBLfvzQU7AS0HewOCWu2e4lw0aYX4R-zhThNwXaoooz_cNb9WjmFuRd0ZBP8mNO7RvR2_jrf50MV3b-1Zxfu0l5kD-7ObKYxBXMGNOrmjqGRmMmFeOL4wILPQ3yek0D0abhZF_z6JEvA-OydKhkPsATTXu8RnIhaDoHCC3xMY5rsDtk13VHsbrAb7Hyh-SiO-3iV06J1hX1qAs6L1We9U80E7UxKlGQjlxPwKuLcQOMFD8UyS_hYGtS_Ig_cWmOYl0jU1Xl4eq2gW2WyvKqIKjMcF6mPmO-JCnAne3XXSH6xBECFpxLx2W7A8SYdAEl-hDQWfj411_eLtEPmkfjSCR0CHQy0Yzuctfi6S-WlPG_5AAiLyKk8F4kC9jBTaxEQjwiO9iC6LkmLG2WIgYWweEXXynmcgIR772WS6ift8K8y459QILCY65Xw6TJdUqTsjvA3xoYA</span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Token proporcionado insertado aquí</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ACCESS_TOKEN = 'sl.u.AGV88n69d7KfuSWkIbnFTP1ft0zv97tkZ608RwcbOWJxVeAD4v9GRf374UbeUOfFEaIeSM7Sz5tn0-79agP3Cn_Bpi9gPRgAV8x_jA2VBNME4QzibrvkSbUtG5u5Srinjn3jF95RtibQ6kRWFGtKI7FllZluqdtJPCL9JrYub3IQsp947OISchuxE4LnVsd2V9cqQWTCyOn11DuSNN2rlow1WsHGh4EK2fz2JE_trhgU8QO1O4VnN6sZbdDVDYCy3AUs7zBnaeVU9Bu9E_WFoD7lm9GC-hjb22Yx-VYkwYKNt6kkne0Anx9oVl05jd4I0E2m8vdulHsgUOVAKHjRRcQ-PX7dgG37NifQrH1x0SFF8rmrAnC4YkIq80sefQXBZ__jdbXKJ7cRMY8NWkyFkx5MIlQiNN7lQqOwRm3ZpsBegLCF2naa6Pol3xrNSrBTXccawTZ8vTzz7apL79ZNwYJA5pAX0i2blgyHpD8aVK9PLgdkvCDniJfE2ewJbAt5abql6CTtlGlkAZyjWFgfzDHEQ6_6VVLCTUwi6sU85u4LOkAOi5en8FFuRkcd5tHD0nkcAJ54zx_ekPS-xxm66BZAxG8BEXO_9w-EgLq02x6ixgmMVMQHBY-lGpV4oLDLxhS-EbrBqapNaNHJGq52gkYNFl3Pp1KJS35gLgNUZaWskZYvA7RIjVU_LW524bdHuQ6i-8bYMkWTYP7bZJc_lHoqD-v84iWqUKw6YYgf8E9VqvpELJO12CSxRgPK4jUd7LhlEfqM_sIDFg_6hztEs1nDMzcrePq0HVEnjN8STqtzT3ML9xAs8pMPokw5URdIxs-ebFuBmfRzmNn9DYZ9xkVGP9vtegW3cPflQNzBLfvzQU7AS0HewOCWu2e4lw0aYX4R-zhThNwXaoooz_cNb9WjmFuRd0ZBP8mNO7RvR2_jrf50MV3b-1Zxfu0l5kD-7ObKYxBXMGNOrmjqGRmMmFeOL4wILPQ3yek0D0abhZF_z6JEvA-OydKhkPsATTXu8RnIhaDoHCC3xMY5rsDtk13VHsbrAb7Hyh-SiO-3iV06J1hX1qAs6L1We9U80E7UxKlGQjlxPwKuLcQOMFD8UyS_hYGtS_Ig_cWmOYl0jU1Xl4eq2gW2WyvKqIKjMcF6mPmO-JCnAne3XXSH6xBECFpxLx2W7A8SYdAEl-hDQWfj411_eLtEPmkfjSCR0CHQy0Yzuctfi6S-WlPG_5AAiLyKk8F4kC9jBTaxEQjwiO9iC6LkmLG2WIgYWweEXXynmcgIR772WS6ift8K8y459QILCY65Xw6TJdUqTsjvA3xoYA';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const dbx = new Dropbox.Dropbox({ accessToken: TOKEN });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function cargar() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const res = await dbx.filesListFolder({path: ''});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const lista = document.getElementById('lista');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>lista.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>res.result.entries.filter(f =&gt; f.name.endsWith('.pdf')).forEach(f =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const item = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>item.className = 'card';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>item.innerHTML = `&lt;span class="file-name"&gt;${f.name}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                 </span>&lt;button onclick="editar('${f.path_display}')"&gt;Quitar última página y Guardar&lt;/button&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>lista.appendChild(item);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function editar(ruta) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(!confirm('¿Quieres modificar este archivo en tu Dropbox?')) return;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function listarArchivos() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const status = document.getElementById('status');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const fileList = document.getElementById('file-list');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
 <p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const descarga = await dbx.filesDownload({path: ruta});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const arrayBuffer = await descarga.result.fileBlob.arrayBuffer();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const pdf = await PDFLib.PDFDocument.load(arrayBuffer);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const paginas = pdf.getPageCount();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(paginas &gt; 1) pdf.removePage(paginas - 1);</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const bytes = await pdf.save();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await dbx.filesUpload({path: ruta, contents: bytes, mode: 'overwrite'});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>alert('¡Sincronización exitosa!');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>cargar();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) { alert('Error: ' + e.message); }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const response = await dbx.filesListFolder({ path: '' });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>status.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fileList.innerHTML = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Filtramos solo los archivos PDF</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const archivos = response.result.entries.filter(entry =&gt; entry.name.toLowerCase().endsWith('.pdf'));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (archivos.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>status.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>status.innerText = 'No se encontraron archivos PDF en la raíz.';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>archivos.forEach(file =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const card = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>card.className = 'card';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>card.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="file-name"&gt;${file.name}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="editarPDF('${file.path_display}')"&gt;Quitar última página&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>fileList.appendChild(card);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>status.innerText = 'Error de conexión: Verifica tu Token de Dropbox.';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>cargar();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function editarPDF(path) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!confirm('¿Seguro que quieres eliminar la última página de este archivo?')) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const btn = event.target;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const textoOriginal = btn.innerText;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.innerText = 'Procesando...';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.disabled = true;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 1. Descargar archivo</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const response = await dbx.filesDownload({ path: path });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const blob = response.result.fileBlob;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const arrayBuffer = await blob.arrayBuffer();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 2. Modificar con PDF-Lib</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const pageCount = pdfDoc.getPageCount();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (pageCount &lt;= 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>alert('El documento solo tiene una página, no se puede eliminar.');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>pdfDoc.removePage(pageCount - 1);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const pdfBytes = await pdfDoc.save();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// 3. Subir de vuelta (Sobrescribir)</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>await dbx.filesUpload({</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>path: path,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>contents: pdfBytes,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>mode: 'overwrite'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>alert('¡Actualizado con éxito!');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.innerText = textoOriginal;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>listarArchivos();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert('Ocurrió un error al editar.');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Iniciar la carga</p>
+<p class="p1"><span class="Apple-converted-space">        </span>listarArchivos();</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
 <p class="p1">&lt;/body&gt;</p>
 <p class="p1">&lt;/html&gt;</p>
