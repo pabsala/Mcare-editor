@@ -3,112 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor PDF Permanente</title>
+    <title>PDF Editor Dropbox</title>
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #f2f2f7; margin: 0; }
-        .header { background: #007aff; color: white; padding: 20px; text-align: center; }
-        .card { background: white; padding: 15px; border-radius: 12px; margin: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        button { background: #007aff; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; }
-        .error-msg { color: #d32f2f; background: #fdecea; padding: 10px; margin: 15px; border-radius: 8px; font-size: 14px; display: none; }
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: #f4f4f9; }
+        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 10px; }
+        button { background: #007aff; color: white; border: none; padding: 10px 20px; border-radius: 8px; width: 100%; font-size: 16px; }
+        h1 { color: #333; font-size: 20px; }
     </style>
 </head>
 <body>
-    <div class="header"><h1>Mis Reportes Médicos</h1></div>
-    <div id="error-display" class="error-msg"></div>
-    <div id="file-list" style="padding: 10px;">Iniciando conexión segura...</div>
+    <h1>Mis Documentos Dropbox</h1>
+    <div id="file-list">Cargando archivos...</div>
 
     <script>
-        const APP_KEY = 'gjgucqwqop2q06x';
-        const APP_SECRET = 'k44t41hc7whaaue';
-        // RECUERDA: Este debe ser el Refresh Token largo obtenido tras el intercambio
-        const REFRESH_TOKEN = 'sl.u.AGULL34VCawlMndqtpvmBTNz6a_KTMV4JOMrbqq3ksZr1NMxgUXqV8oaw9lb_rMzQmyVt3eevBj5Rw8bAAU4Z_iGG8nhi46MA88kRJQKVMmJy2K7V5RPnc8DSl8Bbns7rNcZpagrdPD3D0xoROiPyWfAAKREEr2TjgzaXg9YwQgp259Pl4MO-1kCiUA8Jo2kNWM-5yzp8LS2baWAqKY907jOSd9GNT_FMLyIUKbi59b2EAmw3Uf56lkRxDSmTuIXPjl7SRKzZ2-03n01HVhdzJyMIwHmVXKemQeAhEXalHCW_w0u_r8WFmv2RiF3UG3ATzxiwDcn9tM27_6Ue1Pq6xTeuTQC4k0Ct5nmqo33dNy7glbK4yB924a-1hscSENLrtsrfNTYk5u7OkoXTA1c3E7c_MGtmE9zDiM3879_b8kGfhRWa2xynY4zgykC9fnNqEUl7NPKSAtnEw4CvljSv2JFOAboTJhvUZTeW9kjdf7i_8m-73mXMDYObUWBMdKOQFUJQZnad3alPimmtZs_xjwV-IH6NPDMdxvGPJzhWn0vkxNHkC2vyx6uRl5DPnE-QW6WoZkCgdO1bTd_pIn3R-b-WNOK8IWmIjn-UV8M8xJDB3sK_mQhlwUSeCQqWA2iG8IoNqG-oT2acuXoOX8sV6a8piCVgfn-5xVOutgtEBnoolwWetcgr7g5Bne8ohc1nlre_ZLNlc5bhRq_Z4NeVPolnEDsPbQWKv-cSkp1tf3LfRAfRgs916qDQ62ZPIwtYonyhPQhy3e7lY3XQITMlgV36R0Aj85PUWh2o2s25w0aBQUE_mBf8Zh9XmxiCjzy3nk_ly_69Pn0KlFKhfxulMwrNo79P1kVLYylICWwqWMC9RdlvaLF4iTPrQQso7w9F-jAetAyfUD5rnBRSPHpeM1Etxda5IzrZ1DIn6M5v39rkgfyLdqv4aDWNMkGgod10QRXSr0R4O8ql21Ub92qGghTPidn320AfmDpFCCZKOxFn5ImKMxS7jdaQwZLcltvEkwUTwX5ib55lv-m1tDZnFddLhSdecJnn39kLVsxLKrtAwlM-CJjEEHUfhBgXR3K7vQffvwKmzyP15PNVXBB22khade7sw1zgkJTFWRgrtpm0wQJ_2RagCaBjoQC4i4t28bIhMjxdW1jF8cZzd21KtNool4I6ezR7rYayePdQa5Zz_DoTrCFp6i-12ePa6lFQEQXTVb5e2lkO-7KcyrtJ-nY_wZBcxsdxrz7JX0EgdYKadIboMrGvhIruJ16oDfbTwKQOv1eCkRCVptuKJ8CkYknL_MD1Gnjnp776IsLzWkFxg'; 
+        // PEGA AQUÍ TU LLAVE DEL PASO 1
+        const ACCESS_TOKEN = 'sl.u.AGULL34VCawlMndqtpvmBTNz6a_KTMV4JOMrbqq3ksZr1NMxgUXqV8oaw9lb_rMzQmyVt3eevBj5Rw8bAAU4Z_iGG8nhi46MA88kRJQKVMmJy2K7V5RPnc8DSl8Bbns7rNcZpagrdPD3D0xoROiPyWfAAKREEr2TjgzaXg9YwQgp259Pl4MO-1kCiUA8Jo2kNWM-5yzp8LS2baWAqKY907jOSd9GNT_FMLyIUKbi59b2EAmw3Uf56lkRxDSmTuIXPjl7SRKzZ2-03n01HVhdzJyMIwHmVXKemQeAhEXalHCW_w0u_r8WFmv2RiF3UG3ATzxiwDcn9tM27_6Ue1Pq6xTeuTQC4k0Ct5nmqo33dNy7glbK4yB924a-1hscSENLrtsrfNTYk5u7OkoXTA1c3E7c_MGtmE9zDiM3879_b8kGfhRWa2xynY4zgykC9fnNqEUl7NPKSAtnEw4CvljSv2JFOAboTJhvUZTeW9kjdf7i_8m-73mXMDYObUWBMdKOQFUJQZnad3alPimmtZs_xjwV-IH6NPDMdxvGPJzhWn0vkxNHkC2vyx6uRl5DPnE-QW6WoZkCgdO1bTd_pIn3R-b-WNOK8IWmIjn-UV8M8xJDB3sK_mQhlwUSeCQqWA2iG8IoNqG-oT2acuXoOX8sV6a8piCVgfn-5xVOutgtEBnoolwWetcgr7g5Bne8ohc1nlre_ZLNlc5bhRq_Z4NeVPolnEDsPbQWKv-cSkp1tf3LfRAfRgs916qDQ62ZPIwtYonyhPQhy3e7lY3XQITMlgV36R0Aj85PUWh2o2s25w0aBQUE_mBf8Zh9XmxiCjzy3nk_ly_69Pn0KlFKhfxulMwrNo79P1kVLYylICWwqWMC9RdlvaLF4iTPrQQso7w9F-jAetAyfUD5rnBRSPHpeM1Etxda5IzrZ1DIn6M5v39rkgfyLdqv4aDWNMkGgod10QRXSr0R4O8ql21Ub92qGghTPidn320AfmDpFCCZKOxFn5ImKMxS7jdaQwZLcltvEkwUTwX5ib55lv-m1tDZnFddLhSdecJnn39kLVsxLKrtAwlM-CJjEEHUfhBgXR3K7vQffvwKmzyP15PNVXBB22khade7sw1zgkJTFWRgrtpm0wQJ_2RagCaBjoQC4i4t28bIhMjxdW1jF8cZzd21KtNool4I6ezR7rYayePdQa5Zz_DoTrCFp6i-12ePa6lFQEQXTVb5e2lkO-7KcyrtJ-nY_wZBcxsdxrz7JX0EgdYKadIboMrGvhIruJ16oDfbTwKQOv1eCkRCVptuKJ8CkYknL_MD1Gnjnp776IsLzWkFxg';
+        const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
 
-        let accessToken = "";
-
-        async function renovarLlave() {
-            const params = new URLSearchParams({
-                'grant_type': 'refresh_token',
-                'refresh_token': REFRESH_TOKEN,
-                'client_id': APP_KEY,
-                'client_secret': APP_SECRET
-            });
-
-            const response = await fetch('https://api.dropbox.com/oauth2/token', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params
-            });
-
-            const data = await response.json();
-            if (data.error) throw new Error(data.error_description || data.error);
-            return data.access_token;
-        }
-
-        async function iniciarApp() {
+        async function listarArchivos() {
+            const response = await dbx.filesListFolder({path: ''});
             const listDiv = document.getElementById('file-list');
-            const errorDiv = document.getElementById('error-display');
+            listDiv.innerHTML = '';
             
-            try {
-                accessToken = await renovarLlave();
-                const dbx = new Dropbox.Dropbox({ accessToken: accessToken });
-                
-                const res = await dbx.filesListFolder({ path: '' });
-                listDiv.innerHTML = '';
-                errorDiv.style.display = 'none';
-
-                // Corrección: Filtro insensible a mayúsculas
-                const pdfs = res.result.entries.filter(f => f.name.toLowerCase().endsWith('.pdf'));
-
-                if (pdfs.length === 0) {
-                    listDiv.innerText = "No se encontraron archivos PDF.";
-                    return;
+            response.result.entries.forEach(file => {
+                if (file.name.endsWith('.pdf')) {
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    div.innerHTML = `
+                        <strong>${file.name}</strong><br><br>
+                        <button onclick="eliminarUltimaPagina('${file.path_display}')">Eliminar última página y sincronizar</button>
+                    `;
+                    listDiv.appendChild(div);
                 }
-
-                pdfs.forEach(file => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<strong>${file.name}</strong>
-                                     <button onclick="editar('${file.path_display}')">Quitar última página</button>`;
-                    listDiv.appendChild(card);
-                });
-            } catch (e) {
-                listDiv.innerText = "Error de conexión.";
-                errorDiv.innerText = "Detalle técnico: " + e.message;
-                errorDiv.style.display = 'block';
-            }
+            });
         }
 
-        async function editar(path) {
-            try {
-                const dbx = new Dropbox.Dropbox({ accessToken: accessToken });
-                const res = await dbx.filesDownload({ path: path });
-                const arrayBuffer = await res.result.fileBlob.arrayBuffer();
-                
-                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                const pageCount = pdfDoc.getPageCount();
-                
-                if (pageCount > 1) {
-                    pdfDoc.removePage(pageCount - 1);
-                    const pdfBytes = await pdfDoc.save();
-                    
-                    await dbx.filesUpload({ 
-                        path: path, 
-                        contents: pdfBytes, 
-                        mode: 'overwrite' 
-                    });
-                    alert('¡Documento sincronizado correctamente!');
-                    iniciarApp();
-                } else {
-                    alert('El documento tiene solo una página.');
-                }
-            } catch (e) {
-                alert('Fallo al editar: ' + e.message);
+        async function eliminarUltimaPagina(path) {
+            alert('Procesando... esto actualizará el archivo original en Dropbox.');
+            // 1. Descargar
+            const download = await dbx.filesDownload({path: path});
+            const blob = download.result.fileBlob;
+            
+            // 2. Editar PDF
+            const pdfDoc = await PDFLib.PDFDocument.load(await blob.arrayBuffer());
+            const pageCount = pdfDoc.getPageCount();
+            if (pageCount > 1) {
+                pdfDoc.removePage(pageCount - 1);
             }
+            
+            // 3. Guardar y Subir
+            const pdfBytes = await pdfDoc.save();
+            await dbx.filesUpload({
+                path: path,
+                contents: pdfBytes,
+                mode: 'overwrite'
+            });
+            alert('¡Listo! Archivo actualizado.');
+            listarArchivos();
         }
 
-        iniciarApp();
+        listarArchivos();
     </script>
 </body>
 </html>
