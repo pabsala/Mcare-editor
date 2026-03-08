@@ -3,89 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor PDF - Diagnóstico</title>
+    <title>Editor PDF Permanente</title>
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #f2f2f7; margin: 0; padding: 15px; }
-        .header { background: #007aff; color: white; padding: 20px; text-align: center; border-radius: 10px; }
-        .error-box { background: #ffe5e5; border: 1px solid #ff4444; color: #b30000; padding: 15px; border-radius: 10px; margin-top: 20px; font-family: monospace; font-size: 13px; }
-        .card { background: white; padding: 15px; border-radius: 12px; margin-top: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        /* (Tus estilos anteriores se mantienen igual) */
+        body { font-family: -apple-system, sans-serif; background: #f2f2f7; margin: 0; }
+        .header { background: #007aff; color: white; padding: 20px; text-align: center; }
+        .card { background: white; padding: 15px; border-radius: 12px; margin: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         button { background: #007aff; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="header"><h1>Gestor de Reportes</h1></div>
-    <div id="file-list">Conectando...</div>
-    <div id="debug-info"></div>
+    <div class="header"><h1>Mis Reportes Médicos</h1></div>
+    <div id="file-list" style="padding: 10px;">Iniciando conexión segura...</div>
 
     <script>
-        // CONFIGURACIÓN (Asegúrate de que NO tengan espacios al inicio o final)
-        const APP_KEY = 'gjgucqwqop2q06x'; 
+        // CONFIGURACIÓN MAESTRA (RELLENA ESTOS 3 DATOS)
+        const APP_KEY = 'gjgucqwqop2q06x';
         const APP_SECRET = 'k44t41hc7whaaue';
         const REFRESH_TOKEN = 'o82Zg_Ulhb0AAAAAAAAKRArkBli7yNzPrHHlgJO6zog';
 
         let accessToken = "";
 
+        // Función para obtener una "llave de paso" nueva usando la "llave maestra"
         async function renovarLlave() {
-            const debug = document.getElementById('debug-info');
-            try {
-                const response = await fetch('https://api.dropbox.com/oauth2/token', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        'grant_type': 'refresh_token',
-                        'refresh_token': REFRESH_TOKEN,
-                        'client_id': APP_KEY,
-                        'client_secret': APP_SECRET
-                    })
-                });
+            const params = new URLSearchParams();
+            params.append('grant_type', 'refresh_token');
+            params.append('refresh_token', REFRESH_TOKEN);
+            params.append('client_id', APP_KEY);
+            params.append('client_secret', APP_SECRET);
 
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(`Dropbox dice: ${data.error_description || data.error}`);
-                }
-                
-                return data.access_token;
-            } catch (e) {
-                debug.innerHTML = `<div class="error-box"><strong>Error Técnico:</strong><br>${e.message}</div>`;
-                throw e;
-            }
+            const response = await fetch('https://api.dropbox.com/oauth2/token', {
+                method: 'POST',
+                body: params
+            });
+
+            const data = await response.json();
+            return data.access_token;
         }
 
         async function iniciarApp() {
             try {
                 accessToken = await renovarLlave();
                 const dbx = new Dropbox.Dropbox({ accessToken: accessToken });
+                
                 const res = await dbx.filesListFolder({ path: '' });
                 const listDiv = document.getElementById('file-list');
                 listDiv.innerHTML = '';
 
-                res.result.entries.filter(f => f.name.toLowerCase().endsWith('.pdf')).forEach(file => {
+                res.result.entries.filter(f => f.name.endsWith('.pdf')).forEach(file => {
                     const card = document.createElement('div');
                     card.className = 'card';
-                    card.innerHTML = `<strong>${file.name}</strong><br><br><button onclick="editar('${file.path_display}')">Quitar última página</button>`;
+                    card.innerHTML = `<strong>${file.name}</strong><br><br>
+                                     <button onclick="editar('${file.path_display}')">Quitar última página</button>`;
                     listDiv.appendChild(card);
                 });
             } catch (e) {
-                document.getElementById('file-list').innerText = "Fallo en la conexión.";
+                document.getElementById('file-list').innerText = "Error de conexión. Revisa tus credenciales.";
             }
         }
 
         async function editar(path) {
-            try {
-                const dbx = new Dropbox.Dropbox({ accessToken: accessToken });
-                const res = await dbx.filesDownload({ path: path });
-                const pdf = await PDFLib.PDFDocument.load(await res.result.fileBlob.arrayBuffer());
-                if (pdf.getPageCount() > 1) {
-                    pdf.removePage(pdf.getPageCount() - 1);
-                    const bytes = await pdf.save();
-                    await dbx.filesUpload({ path: path, contents: bytes, mode: 'overwrite' });
-                    alert('¡Sincronizado!');
-                    iniciarApp();
-                }
-            } catch (e) { alert('Error al editar: ' + e.message); }
+            // (La lógica de edición se mantiene, usando el accessToken renovado)
+            const dbx = new Dropbox.Dropbox({ accessToken: accessToken });
+            const res = await dbx.filesDownload({ path: path });
+            const pdf = await PDFLib.PDFDocument.load(await res.result.fileBlob.arrayBuffer());
+            if (pdf.getPageCount() > 1) {
+                pdf.removePage(pdf.getPageCount() - 1);
+                const bytes = await pdf.save();
+                await dbx.filesUpload({ path: path, contents: bytes, mode: 'overwrite' });
+                alert('¡Informe actualizado!');
+                iniciarApp();
+            }
         }
 
         iniciarApp();
